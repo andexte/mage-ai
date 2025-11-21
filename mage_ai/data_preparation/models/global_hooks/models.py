@@ -14,6 +14,8 @@ from mage_ai.data_preparation.models.block import Block
 from mage_ai.data_preparation.models.block.utils import fetch_input_variables
 from mage_ai.data_preparation.models.global_hooks.constants import (
     GLOBAL_HOOKS_FILENAME,
+    GLOBAL_POLL_INTERVAL,
+    RESOURCE_TYPES,
     RESOURCE_TYPES,
     HookOutputKey,
 )
@@ -425,7 +427,7 @@ class Hook(BaseDataClass):
                     variables=variables,
                     check_status=check_status and not asynchronous,
                     error_on_failure=error_on_failure,
-                    poll_interval=1,
+                    poll_interval=GLOBAL_POLL_INTERVAL,
                     poll_timeout=poll_timeout,
                     schedule_name=TRIGGER_NAME_FOR_GLOBAL_HOOK,
                     verbose=True,

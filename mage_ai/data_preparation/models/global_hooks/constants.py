@@ -2,6 +2,7 @@ from mage_ai.authentication.permissions.constants import EntityName
 from mage_ai.shared.enum import StrEnum
 
 GLOBAL_HOOKS_FILENAME = 'global_hooks.yaml'
+GLOBAL_POLL_INTERVAL = 3
 
 DISABLED_RESOURCE_TYPES = [
     EntityName.ALL,
