@@ -46,25 +46,17 @@ RUN \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/sqlglot#egg=sqlglot" && \
   # faster-fifo is not supported on Windows: https://github.com/alex-petrenko/faster-fifo/issues/17
   pip3 install --no-cache-dir faster-fifo && \
-  if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ]; then \
-  pip3 install --no-cache-dir "git+https://github.com/andexte/mage-ai.git#egg=mage-integrations&subdirectory=mage_integrations"; \
-  else \
-  pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"; \
-  fi
+  pip3 install --no-cache-dir "git+https://github.com/andexte/mage-ai.git@alexandrejszki-global-poll-interval-increasing#egg=mage-integrations&subdirectory=mage_integrations";
 
 # Mage
 COPY ./mage_ai/server/constants.py /tmp/constants.py
-RUN if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ] ; then \
-  tag=$(tail -n 1 /tmp/constants.py) && \
-  VERSION=$(echo "$tag" | tr -d "'") && \
-  pip3 install --no-cache-dir "mage-ai[all]==$VERSION"; \
-  else \
-  pip3 install --no-cache-dir "git+https://github.com/andexte/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"; \
-  fi
+RUN \
+  pip3 install --no-cache-dir "git+https://github.com/andexte/mage-ai.git@alexandrejszki-global-poll-interval-increasing#egg=mage-ai[all]";
 
 
 ## Startup Script
 COPY --chmod=0755 ./scripts/install_other_dependencies.py ./scripts/run_app.sh /app/
+RUN chmod +x /app/run_app.sh
 
 ENV MAGE_DATA_DIR="/home/src/mage_data"
 ENV PYTHONPATH="${PYTHONPATH}:/home/src"
