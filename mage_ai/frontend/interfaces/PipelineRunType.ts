@@ -153,6 +153,7 @@ export default interface PipelineRunType {
   pipeline_schedule_type?: ScheduleTypeEnum;
   pipeline_tags?: string[];
   pipeline_uuid?: string;
+  project_name?: string;
   repo_path?: string;
   started_at?: string;
   status?: RunStatusEnum;

@@ -256,6 +256,7 @@ type PipelineRunsTableProps = {
   disableRowSelect?: boolean;
   emptyMessage?: string;
   fetchPipelineRuns?: () => void;
+  hideProjectColumn?: boolean;
   hidePipelineColumn?: boolean;
   hideTriggerColumn?: boolean;
   includePipelineTags?: boolean;
@@ -277,6 +278,7 @@ function PipelineRunsTable({
   disableRowSelect,
   emptyMessage = 'No runs available',
   fetchPipelineRuns,
+  hideProjectColumn,
   hidePipelineColumn,
   hideTriggerColumn,
   includePipelineTags,
@@ -420,6 +422,13 @@ function PipelineRunsTable({
     });
   }
 
+  if (!hideProjectColumn) {
+    columnFlex.push(1);
+    columns.push({
+      uuid: 'Project name',
+    });
+  }
+
   if (!hidePipelineColumn) {
     columnFlex.push(1);
     columns.push({
@@ -548,6 +557,7 @@ function PipelineRunsTable({
               pipeline_schedule_name: pipelineScheduleName,
               pipeline_tags: pipelineTags,
               pipeline_uuid: pipelineUUID,
+              project_name: projectName,
               repo_path: repoPath,
               started_at: startedAt,
               status,
@@ -619,6 +629,14 @@ function PipelineRunsTable({
                 arr.push(
                   <Text default key="row_repo_path" monospace>
                     {repoPath}
+                  </Text>,
+                );
+              }
+
+              if (!hideProjectColumn) {
+                arr.push(
+                  <Text default key="row_project_name_retry" monospace muted>
+                    {projectName}
                   </Text>,
                 );
               }
@@ -750,6 +768,14 @@ function PipelineRunsTable({
                 arr.push(
                   <Text default key="row_repo_path" monospace>
                     {repoPath}
+                  </Text>,
+                );
+              }
+
+              if (!hideProjectColumn) {
+                arr.push(
+                  <Text default key="row_project_name" monospace>
+                    {projectName}
                   </Text>,
                 );
               }
